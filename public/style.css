@@ -1,0 +1,35 @@
+.bg-success{
+    background-color: cornflowerblue;
+}
+
+.bg-primary{
+    background-color: rgb(251, 141, 62);
+}
+
+.bg-secondary{
+    background-color: rgb(58, 183, 112);
+}
+
+.relative{
+    position: relative;
+}
+
+.absolute{
+    position: absolute;
+}
+
+.right{
+    right: 0;
+}
+
+.top{
+    top: 0;
+}
+
+.bottom{
+    bottom: 0;
+}
+
+.left{
+    left: 0;
+}
