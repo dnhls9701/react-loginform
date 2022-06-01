@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import GlobalCss from 'components/GlobalCss';
 import EditProfile from 'components/EditProfile';
+import UserList from 'components/UserList';
 
 const App: FC = () => {
 
@@ -14,6 +15,7 @@ const App: FC = () => {
       <GlobalCss/>
         <Box>
           <EditProfile/>
+          <UserList/>
         </Box>
     </ThemeProvider>
   )
