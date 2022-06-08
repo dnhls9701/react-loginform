@@ -1,43 +1,68 @@
-import {FC, useEffect, useState, ReactNode, Fragment} from "react";
+import {FC, useEffect, useState, ReactNode, Fragment, ChangeEvent} from "react";
 import axios from "axios";
 import Muitable from "@mui/material/Table";
-import { TableCell, TableHead, TableRow, TableBody } from "@mui/material";
+import { TableCell, TableHead, TableRow, TableBody, Paper } from "@mui/material";
+import PPagination from "components/Pagination";
 
 export interface IUser{
     id: number;
-    name: string;
-    username: string;
+    uid: string;
+    password: string;
+    first_name: string;
+    last_name: string;
+    username:string;
     email: string;
+    gender: string;
+    phone_number: string;
+    social_insurance_number: string;
+    date_of_birth: string;
+    employment: string;
     address: string;
-    phone: string;
-    website: string;
-    company: string;
+    credit_card:string;
+    subscription: string;
 }
-export interface IGeo{
-    lat: string;
-    lng: string;
+export interface IEmployment{
+    title: string;
+    key_skill: string;
+}
+export interface ICoordinates{
+    lat: number;
+    lng: number;
 }
 export interface IAdress{
-    street: string;
-    suite: string;
     city: string;
+    street_name: string;
+    street_address: string;
     zipcode: string;
-    geo: IGeo;
+    state: string;
+    country: string;
+    coordinates: ICoordinates;
 }
-export interface ICompany{
-    name: string;
-    catchPhrase: string;
-    bs: string;
+export interface ICreaditCard{
+    cc_number: string;
+}
+export interface ISubscription{
+    plan: string;
+    status: string;
+    payment_method: string;
+    term: string;
 }
 export interface IUserJson{
     id: number;
-    name: string;
-    username: string;
+    uid: string;
+    password: string;
+    first_name: string;
+    last_name: string;
+    username:string;
     email: string;
+    gender: string;
+    phone_number: string;
+    social_insurance_number: string;
+    date_of_birth: string;
+    employment: IEmployment;
     address: IAdress;
-    phone: string;
-    website: string;
-    company: ICompany;
+    credit_card: ICreaditCard;
+    subscription: ISubscription;
 }
 
 export interface ITableHeader{
@@ -52,39 +77,63 @@ export interface DataProps{
 const UserList: FC<DataProps> = props => {
     const {header = [
         {key: "id", name: "ID"},
-        {key: "name", name: "Name"},
-        {key: "username", name: "Userame"},
+        {key: "uid", name: "UID"},
+        {key: "password", name: "Password"},
+        {key: "first_name", name: "Firstname"},
+        {key: "last_name", name: "Lastname"},
+        {key: "username", name: "Username"},
         {key: "email", name: "Email"},
+        {key: "gender", name: "Gender"},
+        {key: "phone_number", name: "Phone number"},
+        {key: "social_insurance_number", name: "Social insurance number"},
+        {key: "date_of_birth", name: "D.O.B"},
+        {key: "employment", name: "Employment"},
         {key: "address", name: "Address"},
-        {key: "phone", name: "Phone"},
-        {key: "website", name: "Website"},
-        {key: "company", name: "Company"},
+        {key: "credit_card", name: "Credit card"},
+        {key: "subscription", name: "Subscription"}
     ]} = props;
 
     const [dataUser, setDataUser] = useState<IUser[]>([]);
+    const pageSize = 10;
 
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/users")
+        axios.get("https://random-data-api.com/api/users/random_user?size=100")
         .then(res => {
             const data = res.data as IUserJson[];
             setDataUser(data.map<IUser>(d => {
                 return{ 
                     id: d.id,
-                    name: d.name,
+                    uid: d.uid,
+                    password: d.password,
+                    first_name: d.first_name,
+                    last_name: d.last_name,
                     username: d.username,
                     email: d.email,
-                    address: d.address.street + ', ' + d.address.suite + ', ' + d.address.city ,
-                    phone: d.phone,
-                    website: d.website,
-                    company: d.company.name
+                    gender: d.gender,
+                    phone_number: d.phone_number,
+                    social_insurance_number: d.social_insurance_number,
+                    date_of_birth: d.date_of_birth,
+                    employment: d.employment.title + " " + d.employment.key_skill,
+                    address: d.address.city + ', ' + d.address.street_name + ', ' + d.address.street_address + ', ' + d.address.zipcode + ', ' + d.address.state + ', ' + d.address.country,
+                    credit_card: d.credit_card.cc_number,
+                    subscription: d.subscription.plan + ', ' + d.subscription.status + ', ' + d.subscription.payment_method + ', ' + d.subscription.term
                 }
             }));
         })
         .catch(error => console.log(error));
     }, [])
-    console.log(dataUser);
 
-    return <Muitable>
+    const [currentPage, setCurrentPage] = useState(1);
+    const handleChange = (e: ChangeEvent<unknown>, newPage: number) => {
+        setCurrentPage(newPage);
+    };
+    const indexOfLastPost = currentPage * pageSize;
+    const indexOfFirstPost = indexOfLastPost - pageSize;
+    const currentPosts = dataUser.slice(indexOfFirstPost, indexOfLastPost);
+    const totalData = Math.ceil(dataUser.length / pageSize);
+
+    return <Paper>
+        <Muitable>
             <TableHead>
                 <TableRow>
                     {header.map((h, i) => {
@@ -98,8 +147,8 @@ const UserList: FC<DataProps> = props => {
             </TableHead>
             <TableBody>
             {
-            !!dataUser?.length && 
-                dataUser.map((d, i) => {
+            !!currentPosts?.length && 
+                currentPosts.map((d, i) => {
                     return <TableRow key ={i}>
                         {header.map((h, j) => {
                             return <TableCell key ={j}>
@@ -113,6 +162,11 @@ const UserList: FC<DataProps> = props => {
             }
             </TableBody>
         </Muitable>
+        <PPagination 
+            totalData = {totalData}
+            onChange = {handleChange}
+        />
+    </Paper>
 }
 
 export default UserList;

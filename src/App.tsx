@@ -4,9 +4,8 @@ import theme from './theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import GlobalCss from 'components/GlobalCss';
-import EditProfile from 'components/EditProfile';
+// import EditProfile from 'components/EditProfile';
 import UserList from 'components/UserList';
-
 const App: FC = () => {
 
   return(
@@ -14,7 +13,7 @@ const App: FC = () => {
       <CssBaseline/>
       <GlobalCss/>
         <Box>
-          <EditProfile/>
+          {/* <EditProfile/> */}
           <UserList/>
         </Box>
     </ThemeProvider>

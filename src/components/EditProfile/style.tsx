@@ -19,7 +19,7 @@ export const SxFormWrapper: SxProps<Theme> = {
     minHeight: '500px', 
     maxWidth: 'calc(100vw-3rem)', 
     maxHeight: 'calc(100vh-3rem)',
-    mt: 3,
+    mt: 2,
     borderRadius: '0.5rem'
 }
 
