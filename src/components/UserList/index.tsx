@@ -93,6 +93,7 @@ const UserList: FC<DataProps> = props => {
         {key: "subscription", name: "Subscription"}
     ]} = props;
 
+    //Get data from API
     const [dataUser, setDataUser] = useState<IUser[]>([]);
     const pageSize = 10;
 
@@ -123,13 +124,14 @@ const UserList: FC<DataProps> = props => {
         .catch(error => console.log(error));
     }, [])
 
+    //Set up pagination
     const [currentPage, setCurrentPage] = useState(1);
     const handleChange = (e: ChangeEvent<unknown>, newPage: number) => {
         setCurrentPage(newPage);
     };
-    const indexOfLastPost = currentPage * pageSize;
-    const indexOfFirstPost = indexOfLastPost - pageSize;
-    const currentPosts = dataUser.slice(indexOfFirstPost, indexOfLastPost);
+    const indexOfLastPage = currentPage * pageSize;
+    const indexOfFirstPage = indexOfLastPage - pageSize;
+    const currentData = dataUser.slice(indexOfFirstPage, indexOfLastPage);
     const totalData = Math.ceil(dataUser.length / pageSize);
 
     return <Paper>
@@ -147,8 +149,8 @@ const UserList: FC<DataProps> = props => {
             </TableHead>
             <TableBody>
             {
-            !!currentPosts?.length && 
-                currentPosts.map((d, i) => {
+            !!currentData?.length && 
+                currentData.map((d, i) => {
                     return <TableRow key ={i}>
                         {header.map((h, j) => {
                             return <TableCell key ={j}>
