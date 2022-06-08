@@ -8,18 +8,24 @@ export interface InputRef{
 }
 
 export interface InputProps{
-    onChange?( value: string, e: ChangeEvent<HTMLInputElement>| undefined): void;
+    type?: 'text'| 'password';
+    value?: string;
+    onChange?( value: string, e?: ChangeEvent<HTMLInputElement>): void;
 }
 
 const Input: ForwardRefRenderFunction<InputRef, InputProps> = (props, ref) => {
-    const { onChange } = props;
-    const [ currentValue, setCurrentValue] = useState('');
+    const { onChange, type = 'password', value = '' } = props;
+    const [ currentValue, setCurrentValue ] = useState(value);
     const mounted = useRef(false);
     const eventRef = useRef<ChangeEvent<HTMLInputElement>>();
 
     useEffect(() => {
+        value === currentValue || setCurrentValue(value);
+    }, [ value ]);
+
+    useEffect(() => {
         if(mounted.current){
-            console.log({eventRef});
+            //console.log({eventRef});
             onChange && onChange(currentValue, eventRef.current);
         }
         mounted.current = true;
@@ -39,7 +45,7 @@ const Input: ForwardRefRenderFunction<InputRef, InputProps> = (props, ref) => {
         setCurrentValue( e.target.value );
     }
         
-    return <input value = {currentValue} onChange={ changeInput }/>
+    return <input type ={type} value = {currentValue} onChange={ changeInput }/>
 }
 
 export default forwardRef(Input);

@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import GlobalCss from 'components/GlobalCss';
 // import EditProfile from 'components/EditProfile';
 import UserList from 'components/UserList';
+import Login from 'components/Login';
 const App: FC = () => {
 
   return(
