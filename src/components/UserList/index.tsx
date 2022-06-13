@@ -165,6 +165,7 @@ const UserList: FC<DataProps> = props => {
         </Muitable>
         <Pagination pageSize = {pageSize} 
                     totalData = {dataUser.length}
+                    curPage = {currentPage}
                     onChange = {handleChange}
         />
     </Paper>
