@@ -1,26 +1,35 @@
 // import { Paper, Typography } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
-import {FC, ChangeEvent} from "react";
-import {SxPagination} from "./style";
+// import Pagination from "@mui/material/Pagination";
+import {FC, useState} from "react";
+import './style.css';
 
 export interface PaginationProps{
     totalData: number;
-    onChange? (e: ChangeEvent<unknown>, page: number): void;
+    pageSize: number;
+    onChange (page: number): void;
 }
 
-const PPagination: FC<PaginationProps> = props => {
-    const {totalData, onChange} = props;
+const Pagination: FC<PaginationProps> = (props) => {
+    const {totalData, pageSize, onChange} = props;
+    const pageNumbers = [];
+    for(let i = 1; i <= Math.ceil(totalData/pageSize); i++){
+        pageNumbers.push(i);
+    }
 
     return (
-        <Pagination sx = {SxPagination} 
-                        count={totalData}
-                        variant= 'outlined' 
-                        color = 'primary' 
-                        shape = 'rounded'
-                        onChange={onChange}
-        />
-    )
+        <div>
+          <ul className='pagination'>
+            {pageNumbers.map(num => (
+              <li key={num} className='page-item'>
+                <button onClick={() => onChange(num)}>
+                  {num}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
             
 }
 
-export default PPagination;
+export default Pagination;

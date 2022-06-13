@@ -2,7 +2,7 @@ import {FC, useEffect, useState, ReactNode, Fragment, ChangeEvent} from "react";
 import axios from "axios";
 import Muitable from "@mui/material/Table";
 import { TableCell, TableHead, TableRow, TableBody, Paper } from "@mui/material";
-import PPagination from "components/Pagination";
+import Pagination from "components/Pagination";
 
 export interface IUser{
     id: number;
@@ -95,7 +95,6 @@ const UserList: FC<DataProps> = props => {
 
     //Get data from API
     const [dataUser, setDataUser] = useState<IUser[]>([]);
-    const pageSize = 10;
 
     useEffect(() => {
         axios.get("https://random-data-api.com/api/users/random_user?size=100")
@@ -125,14 +124,14 @@ const UserList: FC<DataProps> = props => {
     }, [])
 
     //Set up pagination
+    const pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
-    const handleChange = (e: ChangeEvent<unknown>, newPage: number) => {
+    const handleChange = (newPage: number) => {
         setCurrentPage(newPage);
     };
     const indexOfLastPage = currentPage * pageSize;
     const indexOfFirstPage = indexOfLastPage - pageSize;
     const currentData = dataUser.slice(indexOfFirstPage, indexOfLastPage);
-    const totalData = Math.ceil(dataUser.length / pageSize);
 
     return <Paper>
         <Muitable>
@@ -164,9 +163,9 @@ const UserList: FC<DataProps> = props => {
             }
             </TableBody>
         </Muitable>
-        <PPagination 
-            totalData = {totalData}
-            onChange = {handleChange}
+        <Pagination pageSize = {pageSize} 
+                    totalData = {dataUser.length}
+                    onChange = {handleChange}
         />
     </Paper>
 }

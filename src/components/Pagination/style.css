@@ -1,0 +1,32 @@
+.pagination{
+    display: inline-flex;
+    padding-left: 0;
+    margin: 20px 40rem 0.5rem;
+    border-radius: 4px;
+}
+
+.pagination > .page-item{
+    display: inline;
+}
+
+.pagination button{
+    border: none;
+}
+
+.pagination > .page-item > button {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #2f3d97;
+    text-decoration: none;
+    background-color: #fff;
+}
+
+.pagination button:hover,
+.pagination button:focus {
+    background-color: rgb(110, 169, 192);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+}

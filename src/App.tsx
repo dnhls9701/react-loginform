@@ -6,7 +6,8 @@ import Box from '@mui/material/Box';
 import GlobalCss from 'components/GlobalCss';
 // import EditProfile from 'components/EditProfile';
 import UserList from 'components/UserList';
-import Login from 'components/Login';
+// import Login from 'components/Login';
+// import Comment from 'components/Comment';
 const App: FC = () => {
 
   return(
@@ -16,6 +17,7 @@ const App: FC = () => {
         <Box>
           {/* <EditProfile/> */}
           <UserList/>
+          {/* <Comment/> */}
         </Box>
     </ThemeProvider>
   )
