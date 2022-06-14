@@ -1,6 +1,6 @@
 // import { Paper, Typography } from "@mui/material";
 // import Pagination from "@mui/material/Pagination";
-import {FC, useState} from "react";
+import {FC} from "react";
 import './style.css';
 
 export interface PaginationProps{
@@ -18,30 +18,22 @@ const Pagination: FC<PaginationProps> = (props) => {
     }
 
     return (
-        <div>
-          <ul className='pagination'>
-            <li className='page-item'>
-                <button disabled = {curPage <= 1}
-                        onClick ={() => onChange(curPage - 1)} 
-                > 
-                Prev
-                </button>
-            </li>
-            {pageNumbers.map(num => (
-              <li key={num} className='page-item'>
-                <button onClick={() => onChange(num)}>
-                  {num}
-                </button>
-              </li>
-            ))}
-            <li className='page-item'>
-                <button disabled = {curPage >= pageNumbers.length}
-                    onClick ={() => onChange(curPage + 1)} 
-                > 
-                Next
-                </button>
-            </li>
-          </ul>
+          <div className='pagination'>
+            <button 
+                    disabled = {curPage === 1}
+                    onClick ={() => onChange(curPage - 1)}
+            >Prev</button>
+            {pageNumbers.map((num => (
+                <button 
+                        key={num} 
+                        onClick={() => onChange(num)}
+                >{num}</button>
+            )))
+            }
+            <button 
+                    disabled = {curPage === pageNumbers.length}
+                    onClick ={() => onChange(curPage + 1)}
+            >Next</button>
         </div>
       );
             
