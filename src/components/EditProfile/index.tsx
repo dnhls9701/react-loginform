@@ -125,7 +125,7 @@ const EditProfile: ForwardRefRenderFunction<ProfileRef, ProfileProps> = (props, 
         }
     }
 
-    console.log(textFullname, textDOB, textUsername, textPassword);
+    // console.log(textFullname, textDOB, textUsername, textPassword);
 
 
     return <Paper sx={SxPaper} className ="relative">

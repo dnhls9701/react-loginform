@@ -4,9 +4,9 @@ import theme from './theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import GlobalCss from 'components/GlobalCss';
-// import EditProfile from 'components/EditProfile';
+import EditProfile from 'components/EditProfile';
 import UserList from 'components/UserList';
-// import Login from 'components/Login';
+import Login from 'components/Login';
 // import Comment from 'components/Comment';
 const App: FC = () => {
 
@@ -15,7 +15,8 @@ const App: FC = () => {
       <CssBaseline/>
       <GlobalCss/>
         <Box>
-          {/* <EditProfile/> */}
+          <Login/>
+          <EditProfile/>
           <UserList/>
           {/* <Comment/> */}
         </Box>
